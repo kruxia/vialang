@@ -42,6 +42,24 @@ fn calculator4() {
     assert_eq!(&format!("{:?}", expr), "((22 * 44) + 66)");
 }
 
+#[test]
+fn calculator5() {
+    let expr = calculator::ExprsParser::new().parse("").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[]");
+
+    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66)]");
+
+    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66,").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66)]");
+
+    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66, 13*3").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66), (13 * 3)]");
+
+    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66, 13*3,").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66), (13 * 3)]");
+}
+
 #[cfg(not(test))]
 fn main() {
 }
