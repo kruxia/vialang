@@ -36,28 +36,47 @@ pub mod ast;
 
 #[test]
 fn calculator4() {
+    let mut errors = Vec::new();
     let expr = calculator::ExprParser::new()
-        .parse("22 * 44 + 66")
+        .parse(&mut errors, "22 * 44 + 66")
         .unwrap();
     assert_eq!(&format!("{:?}", expr), "((22 * 44) + 66)");
 }
 
 #[test]
 fn calculator5() {
-    let expr = calculator::ExprsParser::new().parse("").unwrap();
+    let mut errors = Vec::new();
+
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "").unwrap();
     assert_eq!(&format!("{:?}", expr), "[]");
 
-    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66").unwrap();
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "22 * 44 + 66").unwrap();
     assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66)]");
 
-    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66,").unwrap();
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "22 * 44 + 66,").unwrap();
     assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66)]");
 
-    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66, 13*3").unwrap();
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "22 * 44 + 66, 13*3").unwrap();
     assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66), (13 * 3)]");
 
-    let expr = calculator::ExprsParser::new().parse("22 * 44 + 66, 13*3,").unwrap();
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "22 * 44 + 66, 13*3,").unwrap();
     assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66), (13 * 3)]");
+}
+
+#[test]
+fn calculator6() {
+    let mut errors = Vec::new();
+
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "22 * + 3").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[((22 * error) + 3)]");
+
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "22 * 44 + 66, *3").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[((22 * 44) + 66), (error * 3)]");
+
+    let expr = calculator::ExprsParser::new().parse(&mut errors, "*").unwrap();
+    assert_eq!(&format!("{:?}", expr), "[(error * error)]");
+
+    assert_eq!(errors.len(), 4);
 }
 
 #[cfg(not(test))]

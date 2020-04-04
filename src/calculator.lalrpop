@@ -1,7 +1,8 @@
 use std::str::FromStr;
 use crate::ast::{Expr, Opcode};
+use lalrpop_util::ErrorRecovery;
 
-grammar;
+grammar<'err>(errors: &'err mut Vec<ErrorRecovery<usize, Token<'input>, &'static str>>);
 
 pub Exprs = Comma<Expr>;
 
@@ -37,6 +38,7 @@ FactorOp: Opcode = {
 Term: Box<Expr> = {
     Num => Box::new(Expr::Number(<>)),
     "(" <Expr> ")",
+    ! => { errors.push(<>); Box::new(Expr::Error) },
 };
 
 Num: i32 =  {
