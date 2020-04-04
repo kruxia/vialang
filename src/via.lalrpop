@@ -1,0 +1,10 @@
+
+grammar;
+
+pub Term: () = {
+    Token*,
+}
+
+Token: () = {
+    r"[\w][\w\-]*",
+}
