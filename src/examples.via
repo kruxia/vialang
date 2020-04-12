@@ -1,0 +1,38 @@
+
+define a as 5
+define greeting as quote Hello, Via! end quote
+
+define hello-via as function begin
+    print greeting
+end function
+
+define print as function with x begin
+    write x 
+    write new-line
+    return x
+end function
+
+hello-via
+
+define counter as function with count as 0 begin
+    comment
+        Like everything, parameters are immutable —
+        the local count shadows the count parameter.
+    end comment
+
+    return function begin
+        define count as count plus 1
+        return count
+    end function
+end function
+
+define index as counter
+
+if true begin
+    index
+end if
+
+while true begin
+    return a
+end while
+

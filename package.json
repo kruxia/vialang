@@ -1,0 +1,30 @@
+{
+  "name": "vialang",
+  "version": "0.0.1",
+  "description": "Via Language",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "nearleyc src/grammar.ne -o src/grammar.js; jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kruxia/vialang.git"
+  },
+  "author": "Sean Harrison",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/kruxia/vialang/issues"
+  },
+  "homepage": "https://github.com/kruxia/vialang#readme",
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12",
+    "moo": "^0.5.1",
+    "nearley": "^2.19.1"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0"
+  }
+}
