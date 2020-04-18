@@ -4,7 +4,6 @@
 const { lexer } = require("./lexer")
 %}
 @lexer lexer
-# @builtin "whitespace.ne"  # _ = optional whitespace, __ = required whitespace
 # -----------------------------------------------------------------------------
 
 Main -> _ (Expression _):*
