@@ -2,8 +2,8 @@ const moo = require('moo');
 
 let lexer = moo.compile({
     // whitespace
-    WHITESPACE:     { match: /[^\S\n]+/, value: null },
-    NEWLINE:        { match: /\n/, lineBreaks: true, value: null },
+    WS:             { match: /[^\S\n]+/, value: (d) => d },
+    NL:             { match: /\n/, lineBreaks: true, value: (d) => d },
 
     // keywords
     HELP:           /\b[Hh][Ee][Ll][Pp]\b/,
@@ -51,7 +51,8 @@ let lexer = moo.compile({
                     },
 
     // strings
-    identifier:     /\b[\w\-]+\b/,
+                    // identifiers don't have punctuation [^\s\w\-] next to them
+    identifier:     /\b(?<![^\s\w\-])[\w\-]+(?![^\s\w\-])\b/,
     word:           /[\S]+/,  // includes surrounding punctuation -- hence no \b...\b
 })
 

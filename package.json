@@ -7,13 +7,13 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "nearleyc src/grammar.ne -o src/grammar.js; jest"
+    "test": "nearleyc src/grammar.ne -o src/grammar.js; jest --coverage --coverageThreshold='{\"global\":{\"statements\":\"90\"}}' $@"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kruxia/vialang.git"
   },
-  "author": "Sean Harrison",
+  "author": "Sean Harrison <sah@kruxia.com>",
   "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/kruxia/vialang/issues"
@@ -25,6 +25,7 @@
     "nearley": "^2.19.1"
   },
   "devDependencies": {
-    "jest": "^25.3.0"
+    "jest": "^25.3.0",
+    "js-yaml": "^3.13.1"
   }
 }
