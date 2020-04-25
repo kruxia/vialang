@@ -20,15 +20,13 @@ describe.each(fixtures)('grammar: %s', (source) => {
 
             // throws an error if the grammar won't parse the examples
             parser.feed(item.via);
-
-            // expect an unambiguous parser result
-            expect(parser.results.length).toBe(1);
-
             parser_results = JSON.parse(JSON.stringify(parser.results))
-            // console.log(item.via + ' ' + JSON.stringify(parser_results))
 
-            // expect the parser results to match what we expect them to be
             try {
+                // expect an unambiguous parser result
+                expect(parser.results.length).toBe(1);
+
+                // expect the parser results to match what we expect them to be
                 expect(parser_results).toStrictEqual(item.results);
             } catch(err) {
                 console.log(JSON.stringify(parser_results));
