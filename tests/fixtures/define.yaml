@@ -10,7 +10,7 @@
 
 # a hyphenated identifier as a quote
 - via: define good-morning as quote Good morning, Via! end quote
-  results: [{"type":"Main","value":[{"type":"Define","value":[{"type":"identifier","value":"good-morning","text":"good-morning","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Expression","value":[{"type":"Quote","value":{"type":"Tokens","value":[{"type":"identifier","value":"Good","text":"Good","offset":29,"lineBreaks":0,"line":1,"col":30},{"type":"WS","value":" ","text":" ","offset":33,"lineBreaks":0,"line":1,"col":34},{"type":"word","value":"morning,","text":"morning,","offset":34,"lineBreaks":0,"line":1,"col":35},{"type":"WS","value":" ","text":" ","offset":42,"lineBreaks":0,"line":1,"col":43},{"type":"word","value":"Via!","text":"Via!","offset":43,"lineBreaks":0,"line":1,"col":44}]}}]}]}]}]
+  results: [{"type":"Main","value":[{"type":"Define","value":[{"type":"identifier","value":"good-morning","text":"good-morning","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Expression","value":[{"type":"Quote","value":[{"type":"identifier","value":"Good","text":"Good","offset":29,"lineBreaks":0,"line":1,"col":30},{"type":"WS","value":" ","text":" ","offset":33,"lineBreaks":0,"line":1,"col":34},{"type":"identifier","value":"morning","text":"morning","offset":34,"lineBreaks":0,"line":1,"col":35},{"type":"punct","value":",","text":",","offset":41,"lineBreaks":0,"line":1,"col":42},{"type":"WS","value":" ","text":" ","offset":42,"lineBreaks":0,"line":1,"col":43},{"type":"identifier","value":"Via","text":"Via","offset":43,"lineBreaks":0,"line":1,"col":44},{"type":"punct","value":"!","text":"!","offset":46,"lineBreaks":0,"line":1,"col":47}]}]}]}]}]
 
 # multiple defines
 - via: define a as 5 define b as 10

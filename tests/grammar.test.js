@@ -4,11 +4,16 @@ const yaml = require('js-yaml');
 const nearley = require("nearley");
 const grammar = require("../src/grammar.js"); // pre-compiled from grammar.ne
 
-describe.each(['define.yaml'])('grammar: %s', (source) => {
+var fixtures = [
+    'scalar.yaml',
+    'define.yaml',
+]
+
+describe.each(fixtures)('grammar: %s', (source) => {
     var sourcePath = path.join(__dirname, 'fixtures', source);
     var data = yaml.safeLoad(fs.readFileSync(sourcePath, { encoding: "UTF-8" }));
     describe.each(data)('', (item) => {
-        test("parse via with expected results: " + item.via, () => {
+        test(item.via + ' ' + JSON.stringify(item.results), () => {
             // instantiate a new parser for each item, so that each test is isolated
             // (the parser collects its feeds, so each result includes previous feeds)
             var parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
@@ -20,10 +25,16 @@ describe.each(['define.yaml'])('grammar: %s', (source) => {
             expect(parser.results.length).toBe(1);
 
             parser_results = JSON.parse(JSON.stringify(parser.results))
-            // console.log(JSON.stringify(parser_results))
+            // console.log(item.via + ' ' + JSON.stringify(parser_results))
 
             // expect the parser results to match what we expect them to be
-            expect(parser_results).toStrictEqual(item.results);
+            try {
+                expect(parser_results).toStrictEqual(item.results);
+            } catch(err) {
+                console.log(JSON.stringify(parser_results));
+                throw(err);
+            }
+            
         });
     });
 });

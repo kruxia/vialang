@@ -84,24 +84,22 @@ var grammar = {
     {"name": "Tokens$ebnf$1", "symbols": ["Tokens$ebnf$1", "Tokens$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "Tokens", "symbols": ["Token", "Tokens$ebnf$1"], "postprocess":  
         function(d) {
-            return {
-                type: 'Tokens', 
-                // It takes quite a bit to unnest the results of this rule.
-                value: [d[0][0]].concat(
-                    d[1].filter((v) => v && v[0]).map((v) => v.map((v) => v[0])).flat())
-            }
+            // It takes quite a bit to unnest the results of this rule. 
+            // (We don't need the Tokens object, so we just return the array value.)
+            return [d[0][0]].concat(
+                d[1].filter((v) => v && v[0]).map((v) => v.filter((v) => v).flat()).flat());
         } 
         },
     {"name": "Float", "symbols": [(lexer.has("float") ? {type: "float"} : float)], "postprocess": function(d) {return d[0]}},
     {"name": "Integer", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)], "postprocess": function(d) {return d[0]}},
     {"name": "Identifier", "symbols": [(lexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": function(d) {return d[0]}},
-    {"name": "True", "symbols": [(lexer.has("TRUE") ? {type: "TRUE"} : TRUE)], "postprocess": function(d) {return d[0]}},
-    {"name": "False", "symbols": [(lexer.has("FALSE") ? {type: "FALSE"} : FALSE)], "postprocess": function(d) {return d[0]}},
-    {"name": "Null", "symbols": [(lexer.has("NULL") ? {type: "NULL"} : NULL)], "postprocess": function(d) {return d[0]}},
-    {"name": "Token", "symbols": [(lexer.has("identifier") ? {type: "identifier"} : identifier)]},
+    {"name": "True", "symbols": [(lexer.has("TRUE") ? {type: "TRUE"} : TRUE)], "postprocess": function(d) {var v = d[0]; v.value = true; return v}},
+    {"name": "False", "symbols": [(lexer.has("FALSE") ? {type: "FALSE"} : FALSE)], "postprocess": function(d) {var v = d[0]; v.value = false; return v}},
+    {"name": "Null", "symbols": [(lexer.has("NULL") ? {type: "NULL"} : NULL)], "postprocess": function(d) {var v = d[0]; v.value = null; return v}},
     {"name": "Token", "symbols": [(lexer.has("float") ? {type: "float"} : float)]},
     {"name": "Token", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)]},
-    {"name": "Token", "symbols": [(lexer.has("word") ? {type: "word"} : word)]},
+    {"name": "Token", "symbols": [(lexer.has("identifier") ? {type: "identifier"} : identifier)]},
+    {"name": "Token", "symbols": [(lexer.has("punct") ? {type: "punct"} : punct)]},
     {"name": "Token", "symbols": [(lexer.has("HELP") ? {type: "HELP"} : HELP)]},
     {"name": "Token", "symbols": [(lexer.has("DEFINE") ? {type: "DEFINE"} : DEFINE)]},
     {"name": "Token", "symbols": [(lexer.has("AS") ? {type: "AS"} : AS)]},
@@ -126,12 +124,12 @@ var grammar = {
     {"name": "Token", "symbols": [(lexer.has("NULL") ? {type: "NULL"} : NULL)]},
     {"name": "Token", "symbols": [(lexer.has("EQUAL_TO") ? {type: "EQUAL_TO"} : EQUAL_TO)]},
     {"name": "Token", "symbols": [(lexer.has("LESS_THAN") ? {type: "LESS_THAN"} : LESS_THAN)]},
-    {"name": "Token", "symbols": [(lexer.has("GREATER_THAN") ? {type: "GREATER_THAN"} : GREATER_THAN)], "postprocess": function(d) {return d}},
+    {"name": "Token", "symbols": [(lexer.has("GREATER_THAN") ? {type: "GREATER_THAN"} : GREATER_THAN)], "postprocess": function(d) {return d[0]}},
     {"name": "_$ebnf$1", "symbols": []},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("WS") ? {type: "WS"} : WS)]},
     {"name": "_$ebnf$1$subexpression$1", "symbols": [(lexer.has("NL") ? {type: "NL"} : NL)]},
     {"name": "_$ebnf$1", "symbols": ["_$ebnf$1", "_$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": function(d) {return d[0][0];}}
+    {"name": "_", "symbols": ["_$ebnf$1"], "postprocess": function(d) {return d[0].flat();}}
 ]
   , ParserStart: "Main"
 }

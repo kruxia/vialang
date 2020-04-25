@@ -1,0 +1,49 @@
+## test scalar
+
+# identifiers can have hyphens and underscores -- we can teach the speech-to-text engine
+# the ones that are built into the application we're using to make them easier to read.
+- via: "hello-via"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "hello-via", "type": "identifier", "value": "hello-via"}]}]}]
+
+- via: "plancks_constant"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "plancks_constant", "type": "identifier", "value": "plancks_constant"}]}]}]
+
+# integers
+- via: "137"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "137", "type": "integer", "value": 137}]}]}]
+
+# floats
+- via: "3.14159"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "3.14159", "type": "float", "value": 3.14159}]}]}]
+
+- via: "2.718e0"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "2.718e0", "type": "float", "value": 2.718}]}]}]
+
+- via: "6e23"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "6e23", "type": "float", "value": 6e+23}]}]}]
+
+- via: "6e+23"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "6e+23", "type": "float", "value": 6e+23}]}]}]
+
+- via: "6.626E-34"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "6.626E-34", "type": "float", "value": 6.626e-34}]}]}]
+
+# true false null
+- via: "true"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "true", "type": "TRUE", "value": true}]}]}]
+
+- via: "false"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "false", "type": "FALSE", "value": false}]}]}]
+
+- via: "null"
+  results: [{"type": "Main", "value": [{"type": "Expression", "value": [{"col": 1, "line": 1, "lineBreaks": 0, "offset": 0, "text": "null", "type": "NULL", "value": null}]}]}]
+
+# quotes
+- via: |-
+    QUOTE
+    This is a quote.
+    Keywords are case-insensitive.
+      Speech has no case.
+    My integer is 7. My float is 3.14.
+    end quote
+  results: [{"type":"Main","value":[{"type":"Expression","value":[{"type":"Quote","value":[{"type":"identifier","value":"This","text":"This","offset":6,"lineBreaks":0,"line":2,"col":1},{"type":"WS","value":" ","text":" ","offset":10,"lineBreaks":0,"line":2,"col":5},{"type":"identifier","value":"is","text":"is","offset":11,"lineBreaks":0,"line":2,"col":6},{"type":"WS","value":" ","text":" ","offset":13,"lineBreaks":0,"line":2,"col":8},{"type":"identifier","value":"a","text":"a","offset":14,"lineBreaks":0,"line":2,"col":9},{"type":"WS","value":" ","text":" ","offset":15,"lineBreaks":0,"line":2,"col":10},{"type":"QUOTE","value":"quote","text":"quote","offset":16,"lineBreaks":0,"line":2,"col":11},{"type":"punct","value":".","text":".","offset":21,"lineBreaks":0,"line":2,"col":16},{"type":"NL","value":"\n","text":"\n","offset":22,"lineBreaks":1,"line":2,"col":17},{"type":"identifier","value":"Keywords","text":"Keywords","offset":23,"lineBreaks":0,"line":3,"col":1},{"type":"WS","value":" ","text":" ","offset":31,"lineBreaks":0,"line":3,"col":9},{"type":"identifier","value":"are","text":"are","offset":32,"lineBreaks":0,"line":3,"col":10},{"type":"WS","value":" ","text":" ","offset":35,"lineBreaks":0,"line":3,"col":13},{"type":"identifier","value":"case-insensitive","text":"case-insensitive","offset":36,"lineBreaks":0,"line":3,"col":14},{"type":"punct","value":".","text":".","offset":52,"lineBreaks":0,"line":3,"col":30},{"type":"NL","value":"\n","text":"\n","offset":53,"lineBreaks":1,"line":3,"col":31},{"type":"WS","value":"  ","text":"  ","offset":54,"lineBreaks":0,"line":4,"col":1},{"type":"identifier","value":"Speech","text":"Speech","offset":56,"lineBreaks":0,"line":4,"col":3},{"type":"WS","value":" ","text":" ","offset":62,"lineBreaks":0,"line":4,"col":9},{"type":"identifier","value":"has","text":"has","offset":63,"lineBreaks":0,"line":4,"col":10},{"type":"WS","value":" ","text":" ","offset":66,"lineBreaks":0,"line":4,"col":13},{"type":"identifier","value":"no","text":"no","offset":67,"lineBreaks":0,"line":4,"col":14},{"type":"WS","value":" ","text":" ","offset":69,"lineBreaks":0,"line":4,"col":16},{"type":"identifier","value":"case","text":"case","offset":70,"lineBreaks":0,"line":4,"col":17},{"type":"punct","value":".","text":".","offset":74,"lineBreaks":0,"line":4,"col":21},{"type":"NL","value":"\n","text":"\n","offset":75,"lineBreaks":1,"line":4,"col":22},{"type":"identifier","value":"My","text":"My","offset":76,"lineBreaks":0,"line":5,"col":1},{"type":"WS","value":" ","text":" ","offset":78,"lineBreaks":0,"line":5,"col":3},{"type":"identifier","value":"integer","text":"integer","offset":79,"lineBreaks":0,"line":5,"col":4},{"type":"WS","value":" ","text":" ","offset":86,"lineBreaks":0,"line":5,"col":11},{"type":"identifier","value":"is","text":"is","offset":87,"lineBreaks":0,"line":5,"col":12},{"type":"WS","value":" ","text":" ","offset":89,"lineBreaks":0,"line":5,"col":14},{"type":"integer","value":7,"text":"7","offset":90,"lineBreaks":0,"line":5,"col":15},{"type":"punct","value":".","text":".","offset":91,"lineBreaks":0,"line":5,"col":16},{"type":"WS","value":" ","text":" ","offset":92,"lineBreaks":0,"line":5,"col":17},{"type":"identifier","value":"My","text":"My","offset":93,"lineBreaks":0,"line":5,"col":18},{"type":"WS","value":" ","text":" ","offset":95,"lineBreaks":0,"line":5,"col":20},{"type":"identifier","value":"float","text":"float","offset":96,"lineBreaks":0,"line":5,"col":21},{"type":"WS","value":" ","text":" ","offset":101,"lineBreaks":0,"line":5,"col":26},{"type":"identifier","value":"is","text":"is","offset":102,"lineBreaks":0,"line":5,"col":27},{"type":"WS","value":" ","text":" ","offset":104,"lineBreaks":0,"line":5,"col":29},{"type":"float","value":3.14,"text":"3.14","offset":105,"lineBreaks":0,"line":5,"col":30},{"type":"punct","value":".","text":".","offset":109,"lineBreaks":0,"line":5,"col":34}]}]}]}]

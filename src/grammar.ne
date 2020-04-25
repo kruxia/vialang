@@ -102,12 +102,10 @@ Quote -> %QUOTE _ Tokens _ %END _ %QUOTE
 Tokens -> Token (_ Token):*
     {% 
     function(d) {
-        return {
-            type: 'Tokens', 
-            // It takes quite a bit to unnest the results of this rule.
-            value: [d[0][0]].concat(
-                d[1].filter((v) => v && v[0]).map((v) => v.map((v) => v[0])).flat())
-        }
+        // It takes quite a bit to unnest the results of this rule. 
+        // (We don't need the Tokens object, so we just return the array value.)
+        return [d[0][0]].concat(
+            d[1].filter((v) => v && v[0]).map((v) => v.filter((v) => v).flat()).flat());
     } 
     %}
 
@@ -121,20 +119,20 @@ Identifier -> %identifier
     {% function(d) {return d[0]} %}
 
 True -> %TRUE
-    {% function(d) {return d[0]} %}
+    {% function(d) {var v = d[0]; v.value = true; return v} %}
 
 False -> %FALSE
-    {% function(d) {return d[0]} %}
+    {% function(d) {var v = d[0]; v.value = false; return v} %}
 
 Null -> %NULL
-    {% function(d) {return d[0]} %}
+    {% function(d) {var v = d[0]; v.value = null; return v} %}
 
 Token -> 
-    %identifier | %float | %integer | %word | %HELP | %DEFINE | %AS |
-    %WITH | %BEGIN | %END | %QUOTE | %BLOCK | %FUNCTION | %COMMENT | %IF | %ELSE |
-    %WHILE | %CONTINUE | %BREAK | %RETURN | %AND | %OR | %NOT | %TRUE | %FALSE | %NULL |
-    %EQUAL_TO | %LESS_THAN | %GREATER_THAN 
+    %float | %integer | %identifier | %punct | %HELP | %DEFINE | %AS | %WITH | %BEGIN |
+    %END | %QUOTE | %BLOCK | %FUNCTION | %COMMENT | %IF | %ELSE | %WHILE | %CONTINUE |
+    %BREAK | %RETURN | %AND | %OR | %NOT | %TRUE | %FALSE | %NULL | %EQUAL_TO |
+    %LESS_THAN | %GREATER_THAN 
     
-    {% function(d) {return d} %}
+    {% function(d) {return d[0]} %}
 
-_  -> ( %WS | %NL ):* {% function(d) {return d[0][0];} %}
+_  -> ( %WS | %NL ):* {% function(d) {return d[0].flat();} %}

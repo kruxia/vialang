@@ -1,10 +1,6 @@
 const moo = require('moo');
 
 let lexer = moo.compile({
-    // whitespace
-    WS:             { match: /[^\S\n]+/, value: (d) => d },
-    NL:             { match: /\n/, lineBreaks: true, value: (d) => d },
-
     // keywords
     HELP:           /\b[Hh][Ee][Ll][Pp]\b/,
     DEFINE:         /\b[Dd][Ee][Ff][Ii][Nn][Ee]\b/,
@@ -41,19 +37,23 @@ let lexer = moo.compile({
     GREATER_THAN:   /\b[Gg][Rr][Ee][Aa][Tt][Ee][Rr] [Tt][Hh][Aa][Nn]\b/,
 
     // numbers
-    float:          {
-                        match:/\b-?[0-9]+\.(?:[0-9]+)?(?:[eE][+\-]?[0-9]+)?\b/, 
-                        value: function(d) { return parseFloat(d) }
-                    },
     integer:        {
-                        match: /\b[0-9]+\b/, 
+                        // "6." will be interpreted as integer + punct, not as float
+                        match: /\b[0-9]+(?![eE\.]\d+)\b/, 
                         value: function(d) { return parseInt(d) }
                     },
+    float:          {
+                        match:/\b-?[0-9]+(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?\b/, 
+                        value: function(d) { return parseFloat(d) }
+                    },
+
+    // whitespace
+    WS:             { match: /[^\S\n]+/, value: (d) => d },
+    NL:             { match: /\n/, lineBreaks: true, value: (d) => d },
 
     // strings
-                    // identifiers don't have punctuation [^\s\w\-] next to them
-    identifier:     /\b(?<![^\s\w\-])[\w\-]+(?![^\s\w\-])\b/,
-    word:           /[\S]+/,  // includes surrounding punctuation -- hence no \b...\b
+    identifier:     /\b[\w\-]+\b/,
+    punct:          /[^\s\w\-]/,
 })
 
 module.exports = { lexer: lexer }
