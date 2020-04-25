@@ -10,8 +10,7 @@ describe.each(['define.yaml'])('grammar: %s', (source) => {
     describe.each(data)('', (item) => {
         test("parse via with expected results: " + item.via, () => {
             // instantiate a new parser for each item, so that each test is isolated
-            // (otherwise, it collects all the inputs, so that each result includes the
-            // previous results)
+            // (the parser collects its feeds, so each result includes previous feeds)
             var parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
 
             // throws an error if the grammar won't parse the examples
