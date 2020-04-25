@@ -4,11 +4,11 @@ const yaml = require('js-yaml');
 const nearley = require("nearley");
 const grammar = require("../src/grammar.js"); // pre-compiled from grammar.ne
 
-for (fixture of ['define.yaml']) {
-    test("parse via with expected results: " + fixture, () => {
-        var sourcePath = path.join(__dirname, 'fixtures', fixture);
-        var data = yaml.safeLoad(fs.readFileSync(sourcePath, { encoding: "UTF-8" }));
-        for (item of data) {
+describe.each(['define.yaml'])('grammar: %s', (source) => {
+    var sourcePath = path.join(__dirname, 'fixtures', source);
+    var data = yaml.safeLoad(fs.readFileSync(sourcePath, { encoding: "UTF-8" }));
+    describe.each(data)('', (item) => {
+        test("parse via with expected results: " + item.via, () => {
             // instantiate a new parser for each item, so that each test is isolated
             // (otherwise, it collects all the inputs, so that each result includes the
             // previous results)
@@ -25,6 +25,6 @@ for (fixture of ['define.yaml']) {
 
             // expect the parser results to match what we expect them to be
             expect(parser_results).toStrictEqual(item.results);
-        }
+        });
     });
-}
+});
