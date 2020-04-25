@@ -46,13 +46,13 @@ Function ->
     {% function(d) {return {type: 'Function', value: d}} %}
 
 If -> 
-    %IF _ ( Boolean | Object ) _ %BEGIN _
+    %IF _ ( Boolean | Call ) _ %BEGIN _
         (Expression _):*
     %END _ %IF
     {% function(d) {return {type: 'If', value: d}} %}
 
 While ->
-    %WHILE _ ( Boolean | Object ) _ %BEGIN _
+    %WHILE _ ( Boolean | Call ) _ %BEGIN _
         (Expression _):*
     %END _ %WHILE
     {% function(d) {return {type: 'While', value: d}} %}
@@ -64,20 +64,20 @@ Boolean ->
 	{% function(d) {return d[0][0]} %}
 
 Both ->
-	%BOTH _ (Boolean | Object ) _ %AND _ (Boolean | Object )
+	%BOTH _ (Boolean | Call ) _ %AND _ (Boolean | Call )
 	{% function(d) {return {type: 'Both', value: [d[2][0], d[6][0]]}} %}
 
 Either ->
-	%EITHER _ (Boolean | Object ) _ %OR _ (Boolean | Object )
+	%EITHER _ (Boolean | Call ) _ %OR _ (Boolean | Call )
 	{% function(d) {return {type: 'Either', value: [d[2][0], d[6][0]]}} %}
 
 Not -> 
-	%NOT _ (Boolean | Object )
+	%NOT _ (Boolean | Call )
 	{% function(d) {return {type: 'Not', value: d[2][0]}} %}
 
 # -- Comparison --
 
-Comparison -> Object _ Compare _ Object
+Comparison -> Call _ Compare _ Call
 	{% function(d) {return {type: 'Comparison', value: d}} %}
 
 Compare -> NotCompare | OrCompare | CompareOp
