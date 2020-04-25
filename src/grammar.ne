@@ -61,36 +61,36 @@ While ->
 
 Boolean -> 
 	( Both | Either | Not | Comparison )
-	{% function(d) {return {type: 'Boolean', value: d[0][0]}} %}
+	{% function(d) {return d[0][0]} %}
 
 Both ->
-	%BOTH _ Boolean _ %AND _ Boolean
-	{% function(d) {return {type: 'Both', value: d[d[2], d[6]]}} %}
+	%BOTH _ (Boolean | Object ) _ %AND _ (Boolean | Object )
+	{% function(d) {return {type: 'Both', value: [d[2][0], d[6][0]]}} %}
 
 Either ->
-	%EITHER _ Boolean _ %OR _ Boolean
-	{% function(d) {return {type: 'Either', value: [d[2], d[6]]}} %}
+	%EITHER _ (Boolean | Object ) _ %OR _ (Boolean | Object )
+	{% function(d) {return {type: 'Either', value: [d[2][0], d[6][0]]}} %}
 
 Not -> 
-	%NOT _ Boolean
-	{% function(d) {return {type: 'Not', value: d[2]}} %}
+	%NOT _ (Boolean | Object )
+	{% function(d) {return {type: 'Not', value: d[2][0]}} %}
 
 # -- Comparison --
 
-Comparison -> Scalar _ Compare _ Scalar
+Comparison -> Object _ Compare _ Object
 	{% function(d) {return {type: 'Comparison', value: d}} %}
 
-Compare -> NotCompare | OrCompare | SingleCompare
+Compare -> NotCompare | OrCompare | CompareOp
 
 NotCompare -> %NOT _ Compare
 	{% function(d) {return {type: 'NotCompare', value: d}} %}
 	
-OrCompare -> SingleCompare _ %OR _ SingleCompare
+OrCompare -> CompareOp _ %OR _ CompareOp
 	{% function(d) {return {type: 'OrCompare', value: [d[0], d[2]]}} %}
 
-SingleCompare ->
+CompareOp ->
 	%LESS_THAN | %GREATER_THAN | %EQUAL_TO
-	{% function(d) {return {type: 'SingleCompare', value: d}} %}
+	{% function(d) {return {type: 'CompareOp', value: d}} %}
 
 # -- Call --
 
