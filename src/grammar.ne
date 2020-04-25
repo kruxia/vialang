@@ -24,9 +24,9 @@ Expression ->
     | If 
     | While 
     | Boolean 
-    | Scalar
+    | Call
     
-    {% function(d) {return {type: 'Expression', value: d[0]}} %}
+    {% function(d) {return d[0]} %}
 
 Comment -> %COMMENT _ Tokens _ %END _ %COMMENT
     {% function(d) {return {type: 'Comment', value: d[2]}} %}
@@ -39,20 +39,20 @@ Return -> %RETURN _ Expression
 
 Function -> 
     %FUNCTION _ 
-        (%WITH (_ Identifier (_ %AS _ Scalar):?):+ _):?
+        (%WITH (_ Identifier (_ %AS _ Object):?):+ _):?
     %BEGIN _ 
         (Expression _):*
     %END _ %FUNCTION
     {% function(d) {return {type: 'Function', value: d}} %}
 
 If -> 
-    %IF _ Boolean _ %BEGIN _
+    %IF _ ( Boolean | Object ) _ %BEGIN _
         (Expression _):*
     %END _ %IF
     {% function(d) {return {type: 'If', value: d}} %}
 
 While ->
-    %WHILE _ Boolean _ %BEGIN _
+    %WHILE _ ( Boolean | Object ) _ %BEGIN _
         (Expression _):*
     %END _ %WHILE
     {% function(d) {return {type: 'While', value: d}} %}
@@ -92,9 +92,21 @@ SingleCompare ->
 	%LESS_THAN | %GREATER_THAN | %EQUAL_TO
 	{% function(d) {return {type: 'SingleCompare', value: d}} %}
 
-# -- Scalars --
+# -- Call --
 
-Scalar -> Identifier | Quote | Float | Integer | True | False | Null 
+Call -> Object (_ Object):*
+    {% 
+    function(d) {
+        var value = d[0];
+        if (d[2]) value.concat(d[2][0]);        
+        return {type: 'Call', value: value};
+    } 
+    %}
+
+# -- Objects --
+
+Object -> Identifier | Quote | Float | Integer | True | False | Null 
+    {% function(d) {return d[0]} %}
 
 Quote -> %QUOTE _ Tokens _ %END _ %QUOTE
     {% function(d) {return {type: 'Quote', value: d[2]}} %}
@@ -135,4 +147,4 @@ Token ->
     
     {% function(d) {return d[0]} %}
 
-_  -> ( %WS | %NL ):* {% function(d) {return d[0].flat();} %}
+_  -> ( %WS | %NL ):* {% function(d) {return d[0].flat()} %}
