@@ -34,7 +34,7 @@ end function
 define count as counter
 
 define fibonacci as function with n begin
-    if n < 3 begin
+    if n less than 3 begin
         return 1
     else begin
         define f as fibonacci with n minus 1
