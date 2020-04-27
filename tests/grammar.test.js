@@ -7,7 +7,7 @@ const grammar = require("../src/grammar.js");  // pre-compiled from grammar.ne
 var fixtures = [
     'scalar.yaml',
     'boolean.yaml',
-    // 'comparison.yaml',
+    'comparison.yaml',
     'define.yaml',
 ]
 

@@ -77,20 +77,20 @@ Not ->
 
 # -- Comparison --
 
-Comparison -> Call _ Compare _ Call
-	{% function(d) {return {type: 'Comparison', value: d}} %}
+Comparison -> (Boolean | Call) _ Compare _ (Boolean | Call)
+	{% function(d) {return {type: 'Comparison', value: [d[0][0], d[2][0], d[4][0]]}} %}
 
-Compare -> NotCompare | OrCompare | CompareOp
+Compare -> (NotCompare | OrCompare | CompareOp)
+    {% function(d) {return d[0]} %}
 
 NotCompare -> %NOT _ Compare
-	{% function(d) {return {type: 'NotCompare', value: d}} %}
+    {% function(d) {return {type: 'NotCompare', value: d[2][0]}} %}
 	
 OrCompare -> CompareOp _ %OR _ CompareOp
-	{% function(d) {return {type: 'OrCompare', value: [d[0], d[2]]}} %}
+	{% function(d) {return {type: 'OrCompare', value: [d[0], d[4]]}} %}
 
-CompareOp ->
-	%LESS_THAN | %GREATER_THAN | %EQUAL_TO
-	{% function(d) {return {type: 'CompareOp', value: d}} %}
+CompareOp -> (%LESS_THAN | %GREATER_THAN | %EQUAL_TO)
+	{% function(d) {return d[0][0]} %}
 
 # -- Call --
 
