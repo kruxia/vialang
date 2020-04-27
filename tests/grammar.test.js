@@ -6,7 +6,7 @@ const grammar = require("../src/grammar.js");  // pre-compiled from grammar.ne
 
 var fixtures = [
     'scalar.yaml',
-    // 'boolean.yaml',
+    'boolean.yaml',
     // 'comparison.yaml',
     'define.yaml',
 ]
@@ -30,13 +30,15 @@ describe.each(fixtures)('grammar: %s', (source) => {
 
                 // expect the parser results to match what we expect them to be
                 expect(parser_results).toStrictEqual(item.results);
-            } catch(err) {
-                console.log("item.via: " + item.via);
-                console.log("expected: " + JSON.stringify(item.results));
-                console.log("parsed: " + JSON.stringify(parser_results));
-                throw(err);
+            } catch (err) {
+                console.log(
+                    "item.via: " + item.via
+                    + "\n  expected: " + JSON.stringify(item.results)
+                    + "\n  parsed: " + JSON.stringify(parser_results)
+                );
+                throw (err);
             }
-            
+
         });
     });
 });
