@@ -6,9 +6,10 @@ const grammar = require("../src/grammar.js");  // pre-compiled from grammar.ne
 
 var fixtures = [
     'scalar.yaml',
+    'define.yaml',
     'boolean.yaml',
     'comparison.yaml',
-    'define.yaml',
+    'comparison-boolean.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {
