@@ -77,7 +77,7 @@ Not ->
 
 # -- Comparison --
 
-Comparison -> (Boolean | Call) _ Compare _ (Boolean | Call)
+Comparison ->  (Call) _ Compare _ (Call)
 	{% function(d) {return {type: 'Comparison', value: [d[0][0], d[2][0], d[4][0]]}} %}
 
 Compare -> (NotCompare | OrCompare | CompareOp)
