@@ -6,27 +6,20 @@ const { lexer } = require("./lexer")
 @lexer lexer
 # -----------------------------------------------------------------------------
 
-Main -> _ (Expression _):*
+Body -> _ (Statement _):*
     {% 
     function(d) {
         return {
-            type: 'Main', 
+            type: 'Body', 
             value:  d[1].filter((v) => v && v[0]).map((v) => v[0]).flat()
         }
     } 
     %}
 
-Expression -> 
-    Comment 
-    | Define 
-    | Return 
-    | Function 
-    | If 
-    | While 
-    | Boolean 
-    | Call
-    
-    {% function(d) {return d[0]} %}
+# -- Statement --
+
+Statement ->
+    Comment | Define | Return | If | While
 
 Comment -> %COMMENT _ Tokens _ %END _ %COMMENT
     {% function(d) {return {type: 'Comment', value: d[2]}} %}
@@ -35,15 +28,7 @@ Define -> %DEFINE _ Identifier _ %AS _ Expression
     {% function(d) {return {type: 'Define', value: [d[2], d[6]]}} %}
 
 Return -> %RETURN _ Expression
-    {% function(d) {return {type: 'Return', value: d}} %}
-
-Function -> 
-    %FUNCTION _ 
-        (%WITH (_ Identifier (_ %AS _ Object):?):+ _):?
-    %BEGIN _ 
-        (Expression _):*
-    %END _ %FUNCTION
-    {% function(d) {return {type: 'Function', value: d}} %}
+    {% function(d) {return {type: 'Return', value: d[2]}} %}
 
 If -> 
     %IF _ ( Boolean | Call ) _ %BEGIN _
@@ -56,6 +41,31 @@ While ->
         (Expression _):*
     %END _ %WHILE
     {% function(d) {return {type: 'While', value: d}} %}
+
+# -- Expression --
+
+Expression -> 
+    (Function | Call | Boolean)
+    {% function(d) {return d[0][0]} %}
+
+Function -> 
+    %FUNCTION _ 
+        (%WITH (_ Identifier (_ %AS _ Object):?):+ _):?
+    %BEGIN _ 
+        (Expression _):*
+    %END _ %FUNCTION
+    {% function(d) {return {type: 'Function', value: d}} %}
+
+# -- Call --
+
+Call -> Object (_ Object):*
+    {% 
+    function(d) {
+        var value = d[0];
+        if (d[2]) value.concat(d[2][0]);        
+        return {type: 'Call', value: value};
+    } 
+    %}
 
 # -- Boolean --
 
@@ -92,42 +102,21 @@ OrCompare -> CompareOp _ %OR _ CompareOp
 CompareOp -> (%LESS_THAN | %GREATER_THAN | %EQUAL_TO)
 	{% function(d) {return d[0][0]} %}
 
-# -- Call --
-
-Call -> Object (_ Object):*
-    {% 
-    function(d) {
-        var value = d[0];
-        if (d[2]) value.concat(d[2][0]);        
-        return {type: 'Call', value: value};
-    } 
-    %}
-
 # -- Objects --
 
 Object -> Identifier | Quote | Float | Integer | True | False | Null 
     {% function(d) {return d[0]} %}
 
+Identifier -> %identifier
+    {% function(d) {return d[0]} %}
+
 Quote -> %QUOTE _ Tokens _ %END _ %QUOTE
     {% function(d) {return {type: 'Quote', value: d[2]}} %}
-
-Tokens -> Token (_ Token):*
-    {% 
-    function(d) {
-        // It takes quite a bit to unnest the results of this rule. 
-        // (We don't need the Tokens object, so we just return the array value.)
-        return [d[0][0]].concat(
-            d[1].filter((v) => v && v[0]).map((v) => v.filter((v) => v).flat()).flat());
-    } 
-    %}
 
 Float -> %float
     {% function(d) {return d[0]} %}
 
 Integer -> %integer
-    {% function(d) {return d[0]} %}
-
-Identifier -> %identifier
     {% function(d) {return d[0]} %}
 
 True -> %TRUE
@@ -138,6 +127,15 @@ False -> %FALSE
 
 Null -> %NULL
     {% function(d) {var v = d[0]; v.value = null; return v} %}
+
+Tokens -> Token (_ Token):*
+    {% 
+    function(d) {
+        // (We don't need the Tokens object, so we just return the array value.)
+        return [d[0][0]].concat(
+            d[1].filter((v) => v && v[0]).map((v) => v.filter((v) => v).flat()).flat());
+    } 
+    %}
 
 Token -> 
     %float | %integer | %identifier | %punct | %HELP | %DEFINE | %AS | %WITH | %BEGIN |

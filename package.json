@@ -2,7 +2,7 @@
   "name": "vialang",
   "version": "0.0.1",
   "description": "Via Language",
-  "main": "index.js",
+  "Body": "index.js",
   "directories": {
     "doc": "docs"
   },

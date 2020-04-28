@@ -1,0 +1,55 @@
+## test boolean comparisons
+## * Combine boolean and / or / not with all kinds of comparisons.
+## * We only use a, b, c as scalars here; "scalar.yaml" tests a variety of scalars.
+## * These examples are being tortured for a good cause. No actual examples are being
+##   harmed in these experiments
+
+- via: >- 
+    return 
+    both a less than b 
+    and c greater than d
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":13,"lineBreaks":0,"line":1,"col":14}]},{"type":"LESS_THAN","value":"less than","text":"less than","offset":15,"lineBreaks":0,"line":1,"col":16},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":25,"lineBreaks":0,"line":1,"col":26}]}]},{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":32,"lineBreaks":0,"line":1,"col":33}]},{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":34,"lineBreaks":0,"line":1,"col":35},{"type":"Call","value":[{"type":"identifier","value":"d","text":"d","offset":47,"lineBreaks":0,"line":1,"col":48}]}]}]}}]}]
+
+- via: >-
+    return 
+    either a not greater than b 
+    or c less than or equal to d
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":15,"lineBreaks":0,"line":1,"col":16}]},{"type":"NotCompare","value":{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":21,"lineBreaks":0,"line":1,"col":22}},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":34,"lineBreaks":0,"line":1,"col":35}]}]},{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":40,"lineBreaks":0,"line":1,"col":41}]},{"type":"OrCompare","value":[{"type":"LESS_THAN","value":"less than","text":"less than","offset":42,"lineBreaks":0,"line":1,"col":43},{"type":"EQUAL_TO","value":"equal to","text":"equal to","offset":55,"lineBreaks":0,"line":1,"col":56}]},{"type":"Call","value":[{"type":"identifier","value":"d","text":"d","offset":64,"lineBreaks":0,"line":1,"col":65}]}]}]}}]}]
+
+- via: return not a less than b
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":11,"lineBreaks":0,"line":1,"col":12}]},{"type":"LESS_THAN","value":"less than","text":"less than","offset":13,"lineBreaks":0,"line":1,"col":14},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}]}}}]}]
+
+- via: return not a not greater than or equal to b
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":11,"lineBreaks":0,"line":1,"col":12}]},{"type":"NotCompare","value":{"type":"OrCompare","value":[{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":17,"lineBreaks":0,"line":1,"col":18},{"type":"EQUAL_TO","value":"equal to","text":"equal to","offset":33,"lineBreaks":0,"line":1,"col":34}]}},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":42,"lineBreaks":0,"line":1,"col":43}]}]}}}]}]
+
+- via: >- 
+    return 
+    both a less than b 
+    and not c greater than or equal to d
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":13,"lineBreaks":0,"line":1,"col":14}]},{"type":"LESS_THAN","value":"less than","text":"less than","offset":15,"lineBreaks":0,"line":1,"col":16},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":25,"lineBreaks":0,"line":1,"col":26}]}]},{"type":"Not","value":{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":36,"lineBreaks":0,"line":1,"col":37}]},{"type":"OrCompare","value":[{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":38,"lineBreaks":0,"line":1,"col":39},{"type":"EQUAL_TO","value":"equal to","text":"equal to","offset":54,"lineBreaks":0,"line":1,"col":55}]},{"type":"Call","value":[{"type":"identifier","value":"d","text":"d","offset":63,"lineBreaks":0,"line":1,"col":64}]}]}}]}}]}]
+
+- via: >-
+    return 
+    either not a less than b 
+    or c not less than or equal to d
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Not","value":{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":19,"lineBreaks":0,"line":1,"col":20}]},{"type":"LESS_THAN","value":"less than","text":"less than","offset":21,"lineBreaks":0,"line":1,"col":22},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":31,"lineBreaks":0,"line":1,"col":32}]}]}},{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":37,"lineBreaks":0,"line":1,"col":38}]},{"type":"NotCompare","value":{"type":"OrCompare","value":[{"type":"LESS_THAN","value":"less than","text":"less than","offset":43,"lineBreaks":0,"line":1,"col":44},{"type":"EQUAL_TO","value":"equal to","text":"equal to","offset":56,"lineBreaks":0,"line":1,"col":57}]}},{"type":"Call","value":[{"type":"identifier","value":"d","text":"d","offset":65,"lineBreaks":0,"line":1,"col":66}]}]}]}}]}]
+
+# nested booleans with comparisons
+- via: >-
+    return 
+    both a not equal to or greater than b 
+    and 
+      either c equal to or greater than d 
+      or not e greater than f
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":13,"lineBreaks":0,"line":1,"col":14}]},{"type":"NotCompare","value":{"type":"OrCompare","value":[{"type":"EQUAL_TO","value":"equal to","text":"equal to","offset":19,"lineBreaks":0,"line":1,"col":20},{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":31,"lineBreaks":0,"line":1,"col":32}]}},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":44,"lineBreaks":0,"line":1,"col":45}]}]},{"type":"Either","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":61,"lineBreaks":0,"line":2,"col":10}]},{"type":"OrCompare","value":[{"type":"EQUAL_TO","value":"equal to","text":"equal to","offset":63,"lineBreaks":0,"line":2,"col":12},{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":75,"lineBreaks":0,"line":2,"col":24}]},{"type":"Call","value":[{"type":"identifier","value":"d","text":"d","offset":88,"lineBreaks":0,"line":2,"col":37}]}]},{"type":"Not","value":{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"e","text":"e","offset":100,"lineBreaks":0,"line":3,"col":10}]},{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":102,"lineBreaks":0,"line":3,"col":12},{"type":"Call","value":[{"type":"identifier","value":"f","text":"f","offset":115,"lineBreaks":0,"line":3,"col":25}]}]}}]}]}}]}]
+
+# comparison with nested booleans
+# NOT (YET?) ALLOWED
+# - via: >- 
+#     return 
+#     either not a or not b 
+#     equal to 
+#     both 
+#       either a or not b 
+#       and c
+#   results: 

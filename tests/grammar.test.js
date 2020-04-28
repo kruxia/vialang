@@ -5,11 +5,11 @@ const nearley = require("nearley");
 const grammar = require("../src/grammar.js");  // pre-compiled from grammar.ne
 
 var fixtures = [
-    'scalar.yaml',
     'define.yaml',
-    'boolean.yaml',
-    'comparison.yaml',
-    'comparison-boolean.yaml',
+    'return-scalar.yaml',
+    'return-boolean.yaml',
+    'return-comparison.yaml',
+    'return-boolean-comparison.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {
@@ -35,7 +35,7 @@ describe.each(fixtures)('grammar: %s', (source) => {
                 console.log(
                     "item.via: " + item.via
                     + "\n  expected: " + JSON.stringify(item.results)
-                    + "\n  parsed: " + JSON.stringify(parser_results)
+                    + "\n  parsed:   " + JSON.stringify(parser_results)
                 );
                 throw (err);
             }
