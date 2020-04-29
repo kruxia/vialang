@@ -32,13 +32,13 @@ Return -> %RETURN _ Expression
 
 If -> 
     %IF _ ( Boolean | Call ) _ %BEGIN _
-        (Expression _):*
+        Body
     %END _ %IF
     {% function(d) {return {type: 'If', value: d}} %}
 
 While ->
     %WHILE _ ( Boolean | Call ) _ %BEGIN _
-        (Expression _):*
+        Body
     %END _ %WHILE
     {% function(d) {return {type: 'While', value: d}} %}
 
@@ -52,7 +52,7 @@ Function ->
     %FUNCTION _ 
         (%WITH (_ Identifier (_ %AS _ Object):?):+ _):?
     %BEGIN _ 
-        (Expression _):*
+        Body
     %END _ %FUNCTION
     {% function(d) {return {type: 'Function', value: d}} %}
 
