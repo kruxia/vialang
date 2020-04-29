@@ -28,16 +28,10 @@ var grammar = {
     {"name": "Return", "symbols": [(lexer.has("RETURN") ? {type: "RETURN"} : RETURN), "_", "Expression"], "postprocess": function(d) {return {type: 'Return', value: d[2]}}},
     {"name": "If$subexpression$1", "symbols": ["Boolean"]},
     {"name": "If$subexpression$1", "symbols": ["Call"]},
-    {"name": "If$ebnf$1", "symbols": []},
-    {"name": "If$ebnf$1$subexpression$1", "symbols": ["Expression", "_"]},
-    {"name": "If$ebnf$1", "symbols": ["If$ebnf$1", "If$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "If", "symbols": [(lexer.has("IF") ? {type: "IF"} : IF), "_", "If$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "If$ebnf$1", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("IF") ? {type: "IF"} : IF)], "postprocess": function(d) {return {type: 'If', value: d}}},
+    {"name": "If", "symbols": [(lexer.has("IF") ? {type: "IF"} : IF), "_", "If$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("IF") ? {type: "IF"} : IF)], "postprocess": function(d) {return {type: 'If', value: d}}},
     {"name": "While$subexpression$1", "symbols": ["Boolean"]},
     {"name": "While$subexpression$1", "symbols": ["Call"]},
-    {"name": "While$ebnf$1", "symbols": []},
-    {"name": "While$ebnf$1$subexpression$1", "symbols": ["Expression", "_"]},
-    {"name": "While$ebnf$1", "symbols": ["While$ebnf$1", "While$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "While", "symbols": [(lexer.has("WHILE") ? {type: "WHILE"} : WHILE), "_", "While$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "While$ebnf$1", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("WHILE") ? {type: "WHILE"} : WHILE)], "postprocess": function(d) {return {type: 'While', value: d}}},
+    {"name": "While", "symbols": [(lexer.has("WHILE") ? {type: "WHILE"} : WHILE), "_", "While$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("WHILE") ? {type: "WHILE"} : WHILE)], "postprocess": function(d) {return {type: 'While', value: d}}},
     {"name": "Expression$subexpression$1", "symbols": ["Function"]},
     {"name": "Expression$subexpression$1", "symbols": ["Call"]},
     {"name": "Expression$subexpression$1", "symbols": ["Boolean"]},
@@ -55,17 +49,16 @@ var grammar = {
     {"name": "Function$ebnf$1$subexpression$1", "symbols": [(lexer.has("WITH") ? {type: "WITH"} : WITH), "Function$ebnf$1$subexpression$1$ebnf$1", "_"]},
     {"name": "Function$ebnf$1", "symbols": ["Function$ebnf$1$subexpression$1"], "postprocess": id},
     {"name": "Function$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Function$ebnf$2", "symbols": []},
-    {"name": "Function$ebnf$2$subexpression$1", "symbols": ["Expression", "_"]},
-    {"name": "Function$ebnf$2", "symbols": ["Function$ebnf$2", "Function$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Function", "symbols": [(lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION), "_", "Function$ebnf$1", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Function$ebnf$2", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION)], "postprocess": function(d) {return {type: 'Function', value: d}}},
+    {"name": "Function", "symbols": [(lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION), "_", "Function$ebnf$1", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION)], "postprocess": function(d) {return {type: 'Function', value: d}}},
     {"name": "Call$ebnf$1", "symbols": []},
     {"name": "Call$ebnf$1$subexpression$1", "symbols": ["_", "Object"]},
     {"name": "Call$ebnf$1", "symbols": ["Call$ebnf$1", "Call$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "Call", "symbols": ["Object", "Call$ebnf$1"], "postprocess":  
         function(d) {
             var value = d[0];
-            if (d[2]) value.concat(d[2][0]);        
+            if (d[1] && value.concat) {
+                value = value.concat(d[1].map((v) => v[1][0]));
+            }
             return {type: 'Call', value: value};
         } 
         },

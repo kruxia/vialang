@@ -1,0 +1,11 @@
+## test return call
+
+- via: return a plus b minus c
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"identifier","value":"plus","text":"plus","offset":9,"lineBreaks":0,"line":1,"col":10},{"type":"identifier","value":"b","text":"b","offset":14,"lineBreaks":0,"line":1,"col":15},{"type":"identifier","value":"minus","text":"minus","offset":16,"lineBreaks":0,"line":1,"col":17},{"type":"identifier","value":"c","text":"c","offset":22,"lineBreaks":0,"line":1,"col":23}]}}]}]
+
+- via: return 3.14159 times r squared
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"float","value":3.14159,"text":"3.14159","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"identifier","value":"times","text":"times","offset":15,"lineBreaks":0,"line":1,"col":16},{"type":"identifier","value":"r","text":"r","offset":21,"lineBreaks":0,"line":1,"col":22},{"type":"identifier","value":"squared","text":"squared","offset":23,"lineBreaks":0,"line":1,"col":24}]}}]}]
+
+# The following cannot yet be parsed unambiguously
+# - via: return quote This is end quote plus quote my name end quote
+#   results: 

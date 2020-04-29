@@ -62,7 +62,9 @@ Call -> Object (_ Object):*
     {% 
     function(d) {
         var value = d[0];
-        if (d[2]) value.concat(d[2][0]);        
+        if (d[1] && value.concat) {
+            value = value.concat(d[1].map((v) => v[1][0]));
+        }
         return {type: 'Call', value: value};
     } 
     %}

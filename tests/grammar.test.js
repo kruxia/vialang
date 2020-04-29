@@ -10,6 +10,7 @@ var fixtures = [
     'return-boolean.yaml',
     'return-comparison.yaml',
     'return-boolean-comparison.yaml',
+    'return-call.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {
@@ -21,9 +22,14 @@ describe.each(fixtures)('grammar: %s', (source) => {
             // (the parser collects its feeds, so each result includes previous feeds)
             var parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
 
-            // throws an error if the grammar won't parse the examples
-            parser.feed(item.via);
-            parser_results = JSON.parse(JSON.stringify(parser.results))
+            try {
+                // throws an error if the grammar won't parse the examples
+                parser.feed(item.via);
+                parser_results = JSON.parse(JSON.stringify(parser.results))
+            } catch (err) {
+                console.log("item.via: " + item.via);
+                throw (err);
+            }
 
             try {
                 // expect an unambiguous parser result
