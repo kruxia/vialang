@@ -13,6 +13,7 @@ var fixtures = [
     'return-call.yaml',
     'define-function.yaml',
     'comment.yaml',
+    'if.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {

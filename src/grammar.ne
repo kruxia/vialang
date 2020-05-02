@@ -29,13 +29,13 @@ Return -> %RETURN _ Expression
     {% function(d) {return {type: 'Return', value: d[2]}} %}
 
 If -> 
-    %IF _ ( Boolean | Call ) _ %BEGIN
+    %IF _ Expression _ %BEGIN
         Body
     %END _ %IF
-    {% function(d) {return {type: 'If', value: d}} %}
+    {% function(d) {return {type: 'If', value: [d[2], d[5]]}} %}
 
 While ->
-    %WHILE _ ( Boolean | Call ) _ %BEGIN
+    %WHILE _ Expression _ %BEGIN
         Body
     %END _ %WHILE
     {% function(d) {return {type: 'While', value: d}} %}

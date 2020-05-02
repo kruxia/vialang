@@ -1,0 +1,33 @@
+## test if
+
+# if expression
+- via: >-
+    if a begin
+      return a
+    end if
+  results: [{"type":"Body","value":[{"type":"If","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":3,"lineBreaks":0,"line":1,"col":4}]},{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":20,"lineBreaks":0,"line":2,"col":10}]}}]}]}]}]
+
+# if comparison
+- via: >-
+    if n less than 3 begin
+      return n
+    end if
+  results: [{"type":"Body","value":[{"type":"If","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"n","text":"n","offset":3,"lineBreaks":0,"line":1,"col":4}]},{"type":"LESS_THAN","value":"less than","text":"less than","offset":5,"lineBreaks":0,"line":1,"col":6},{"type":"Call","value":[{"type":"integer","value":3,"text":"3","offset":15,"lineBreaks":0,"line":1,"col":16}]}]},{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"n","text":"n","offset":32,"lineBreaks":0,"line":2,"col":10}]}}]}]}]}]
+
+# if both
+- via: >-
+    if both a and b begin
+      define c as 5
+      define d as 10
+    end if
+  results: [{"type":"Body","value":[{"type":"If","value":[{"type":"Both","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":8,"lineBreaks":0,"line":1,"col":9}]},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":14,"lineBreaks":0,"line":1,"col":15}]}]},{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"c","text":"c","offset":31,"lineBreaks":0,"line":2,"col":10},{"type":"Call","value":[{"type":"integer","value":5,"text":"5","offset":36,"lineBreaks":0,"line":2,"col":15}]}]},{"type":"Define","value":[{"type":"identifier","value":"d","text":"d","offset":47,"lineBreaks":0,"line":3,"col":10},{"type":"Call","value":[{"type":"integer","value":10,"text":"10","offset":52,"lineBreaks":0,"line":3,"col":15}]}]}]}]}]}]
+
+# if expression comparison
+- via: >-
+    if a plus b greater than 10 begin
+      return a plus b
+    end if
+  results: [{"type":"Body","value":[{"type":"If","value":[{"type":"Comparison","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":3,"lineBreaks":0,"line":1,"col":4},{"type":"identifier","value":"plus","text":"plus","offset":5,"lineBreaks":0,"line":1,"col":6},{"type":"identifier","value":"b","text":"b","offset":10,"lineBreaks":0,"line":1,"col":11}]},{"type":"GREATER_THAN","value":"greater than","text":"greater than","offset":12,"lineBreaks":0,"line":1,"col":13},{"type":"Call","value":[{"type":"integer","value":10,"text":"10","offset":25,"lineBreaks":0,"line":1,"col":26}]}]},{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":43,"lineBreaks":0,"line":2,"col":10},{"type":"identifier","value":"plus","text":"plus","offset":45,"lineBreaks":0,"line":2,"col":12},{"type":"identifier","value":"b","text":"b","offset":50,"lineBreaks":0,"line":2,"col":17}]}}]}]}]}]
+
+# Even though function expression is allowed, it doesn't really make sense in this
+# context
