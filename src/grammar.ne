@@ -19,8 +19,8 @@ Body -> _ (Statement _):*
 Statement ->
     Comment | Define | Return | If | While
 
-Comment -> %COMMENT _ Tokens _ %END _ %COMMENT
-    {% function(d) {return {type: 'Comment', value: d[2]}} %}
+Comment -> %COMMENT (_ Tokens):? _ %END _ %COMMENT
+    {% function(d) {return {type: 'Comment', value: d[1] && d[1][1] || []}} %}
 
 Define -> %DEFINE _ Identifier _ %AS _ Expression
     {% function(d) {return {type: 'Define', value: [d[2], d[6]]}} %}

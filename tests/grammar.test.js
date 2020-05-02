@@ -12,6 +12,7 @@ var fixtures = [
     'return-boolean-comparison.yaml',
     'return-call.yaml',
     'define-function.yaml',
+    'comment.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {

@@ -1,0 +1,15 @@
+## test comment
+
+# empty comment
+- via: >-
+    comment end comment
+  results: [{"type":"Body","value":[{"type":"Comment","value":[]}]}]
+
+# simple comment with keywords embedded
+- via: >-
+    comment 
+      This is a comment end 
+    end comment
+  results:  [{"type":"Body","value":[{"type":"Comment","value":[{"type":"identifier","value":"This","text":"This","offset":11,"lineBreaks":0,"line":2,"col":3},{"type":"WS","value":" ","text":" ","offset":15,"lineBreaks":0,"line":2,"col":7},{"type":"identifier","value":"is","text":"is","offset":16,"lineBreaks":0,"line":2,"col":8},{"type":"WS","value":" ","text":" ","offset":18,"lineBreaks":0,"line":2,"col":10},{"type":"identifier","value":"a","text":"a","offset":19,"lineBreaks":0,"line":2,"col":11},{"type":"WS","value":" ","text":" ","offset":20,"lineBreaks":0,"line":2,"col":12},{"type":"COMMENT","value":"comment","text":"comment","offset":21,"lineBreaks":0,"line":2,"col":13},{"type":"WS","value":" ","text":" ","offset":28,"lineBreaks":0,"line":2,"col":20},{"type":"END","value":"end","text":"end","offset":29,"lineBreaks":0,"line":2,"col":21}]}]}]
+
+# nested comments not (yet?) supported
