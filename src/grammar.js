@@ -10,14 +10,12 @@ var grammar = {
     {"name": "Body$ebnf$1", "symbols": []},
     {"name": "Body$ebnf$1$subexpression$1", "symbols": ["Statement", "_"]},
     {"name": "Body$ebnf$1", "symbols": ["Body$ebnf$1", "Body$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Body", "symbols": ["_", "Body$ebnf$1"], "postprocess":  
-        function(d) {
+    {"name": "Body", "symbols": ["_", "Body$ebnf$1"], "postprocess":  function(d) {
             return {
                 type: 'Body', 
                 value:  d[1].filter((v) => v && v[0]).map((v) => v[0]).flat()
             }
-        } 
-        },
+        } },
     {"name": "Statement", "symbols": ["Comment"]},
     {"name": "Statement", "symbols": ["Define"]},
     {"name": "Statement", "symbols": ["Return"]},
@@ -28,40 +26,43 @@ var grammar = {
     {"name": "Return", "symbols": [(lexer.has("RETURN") ? {type: "RETURN"} : RETURN), "_", "Expression"], "postprocess": function(d) {return {type: 'Return', value: d[2]}}},
     {"name": "If$subexpression$1", "symbols": ["Boolean"]},
     {"name": "If$subexpression$1", "symbols": ["Call"]},
-    {"name": "If", "symbols": [(lexer.has("IF") ? {type: "IF"} : IF), "_", "If$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("IF") ? {type: "IF"} : IF)], "postprocess": function(d) {return {type: 'If', value: d}}},
+    {"name": "If", "symbols": [(lexer.has("IF") ? {type: "IF"} : IF), "_", "If$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("IF") ? {type: "IF"} : IF)], "postprocess": function(d) {return {type: 'If', value: d}}},
     {"name": "While$subexpression$1", "symbols": ["Boolean"]},
     {"name": "While$subexpression$1", "symbols": ["Call"]},
-    {"name": "While", "symbols": [(lexer.has("WHILE") ? {type: "WHILE"} : WHILE), "_", "While$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("WHILE") ? {type: "WHILE"} : WHILE)], "postprocess": function(d) {return {type: 'While', value: d}}},
+    {"name": "While", "symbols": [(lexer.has("WHILE") ? {type: "WHILE"} : WHILE), "_", "While$subexpression$1", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("WHILE") ? {type: "WHILE"} : WHILE)], "postprocess": function(d) {return {type: 'While', value: d}}},
     {"name": "Expression$subexpression$1", "symbols": ["Function"]},
     {"name": "Expression$subexpression$1", "symbols": ["Call"]},
     {"name": "Expression$subexpression$1", "symbols": ["Boolean"]},
     {"name": "Expression", "symbols": ["Expression$subexpression$1"], "postprocess": function(d) {return d[0][0]}},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1$ebnf$1$subexpression$1", "symbols": ["_", (lexer.has("AS") ? {type: "AS"} : AS), "_", "Object"]},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1$ebnf$1", "symbols": ["Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1", "symbols": ["_", "Identifier", "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1$ebnf$1"]},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1", "symbols": ["Function$ebnf$1$subexpression$1$ebnf$1$subexpression$1"]},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2$ebnf$1$subexpression$1", "symbols": ["_", (lexer.has("AS") ? {type: "AS"} : AS), "_", "Object"]},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2$ebnf$1", "symbols": ["Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2", "symbols": ["_", "Identifier", "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2$ebnf$1"]},
-    {"name": "Function$ebnf$1$subexpression$1$ebnf$1", "symbols": ["Function$ebnf$1$subexpression$1$ebnf$1", "Function$ebnf$1$subexpression$1$ebnf$1$subexpression$2"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Function$ebnf$1$subexpression$1", "symbols": [(lexer.has("WITH") ? {type: "WITH"} : WITH), "Function$ebnf$1$subexpression$1$ebnf$1", "_"]},
-    {"name": "Function$ebnf$1", "symbols": ["Function$ebnf$1$subexpression$1"], "postprocess": id},
-    {"name": "Function$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
-    {"name": "Function", "symbols": [(lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION), "_", "Function$ebnf$1", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "_", "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION)], "postprocess": function(d) {return {type: 'Function', value: d}}},
+    {"name": "Function", "symbols": [(lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION), "_", "Params", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("FUNCTION") ? {type: "FUNCTION"} : FUNCTION)], "postprocess":  function(d) {
+            var params = d[2] || [];
+            var body = d[4];
+            return {type: 'Function', value: [params, body]}
+        } },
+    {"name": "Params$ebnf$1", "symbols": []},
+    {"name": "Params$ebnf$1$subexpression$1", "symbols": ["Param", "_"]},
+    {"name": "Params$ebnf$1", "symbols": ["Params$ebnf$1", "Params$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "Params", "symbols": ["Params$ebnf$1"], "postprocess":  function(d) {
+            return d[0].map((v) => v[0]);
+        } },
+    {"name": "Param$ebnf$1$subexpression$1", "symbols": ["_", (lexer.has("AS") ? {type: "AS"} : AS), "_", "Expression"]},
+    {"name": "Param$ebnf$1", "symbols": ["Param$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "Param$ebnf$1", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "Param", "symbols": [(lexer.has("WITH") ? {type: "WITH"} : WITH), "_", "Identifier", "Param$ebnf$1"], "postprocess":  function(d) {
+            var ident = d[2];
+            var obj = d[3] && d[3][3] || null;
+            return {type: 'Param', value: [ident, obj]};
+        } },
     {"name": "Call$ebnf$1", "symbols": []},
     {"name": "Call$ebnf$1$subexpression$1", "symbols": ["_", "Object"]},
     {"name": "Call$ebnf$1", "symbols": ["Call$ebnf$1", "Call$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Call", "symbols": ["Object", "Call$ebnf$1"], "postprocess":  
-        function(d) {
+    {"name": "Call", "symbols": ["Object", "Call$ebnf$1"], "postprocess":  function(d) {
             var value = d[0];
             if (d[1] && value.concat) {
                 value = value.concat(d[1].map((v) => v[1][0]));
             }
             return {type: 'Call', value: value};
-        } 
-        },
+        } },
     {"name": "Boolean$subexpression$1", "symbols": ["Both"]},
     {"name": "Boolean$subexpression$1", "symbols": ["Either"]},
     {"name": "Boolean$subexpression$1", "symbols": ["Not"]},
@@ -110,13 +111,11 @@ var grammar = {
     {"name": "Tokens$ebnf$1", "symbols": []},
     {"name": "Tokens$ebnf$1$subexpression$1", "symbols": ["_", "Token"]},
     {"name": "Tokens$ebnf$1", "symbols": ["Tokens$ebnf$1", "Tokens$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "Tokens", "symbols": ["Token", "Tokens$ebnf$1"], "postprocess":  
-        function(d) {
+    {"name": "Tokens", "symbols": ["Token", "Tokens$ebnf$1"], "postprocess":  function(d) {
             // (We don't need the Tokens object, so we just return the array value.)
             return [d[0][0]].concat(
                 d[1].filter((v) => v && v[0]).map((v) => v.filter((v) => v).flat()).flat());
-        } 
-        },
+        } },
     {"name": "Token", "symbols": [(lexer.has("float") ? {type: "float"} : float)]},
     {"name": "Token", "symbols": [(lexer.has("integer") ? {type: "integer"} : integer)]},
     {"name": "Token", "symbols": [(lexer.has("identifier") ? {type: "identifier"} : identifier)]},

@@ -1,4 +1,5 @@
-## test define
+## test define scalar
+## -- more scalar tests in return-scalar
 
 # - a one-letter identifier as an integer
 - via: define a as 5

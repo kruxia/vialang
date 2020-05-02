@@ -5,12 +5,13 @@ const nearley = require("nearley");
 const grammar = require("../src/grammar.js");  // pre-compiled from grammar.ne
 
 var fixtures = [
-    'define.yaml',
+    'define-scalar.yaml',
     'return-scalar.yaml',
     'return-boolean.yaml',
     'return-comparison.yaml',
     'return-boolean-comparison.yaml',
     'return-call.yaml',
+    'define-function.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {
@@ -20,7 +21,9 @@ describe.each(fixtures)('grammar: %s', (source) => {
         test(item.via, () => {
             // instantiate a new parser for each item, so that each test is isolated
             // (the parser collects its feeds, so each result includes previous feeds)
-            var parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+            var parser = new nearley.Parser(
+                nearley.Grammar.fromCompiled(grammar),
+                { keepHistory: true });
 
             try {
                 // throws an error if the grammar won't parse the examples

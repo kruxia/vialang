@@ -7,14 +7,12 @@ const { lexer } = require("./lexer")
 # -----------------------------------------------------------------------------
 
 Body -> _ (Statement _):*
-    {% 
-    function(d) {
+    {% function(d) {
         return {
             type: 'Body', 
             value:  d[1].filter((v) => v && v[0]).map((v) => v[0]).flat()
         }
-    } 
-    %}
+    } %}
 
 # -- Statement --
 
@@ -31,13 +29,13 @@ Return -> %RETURN _ Expression
     {% function(d) {return {type: 'Return', value: d[2]}} %}
 
 If -> 
-    %IF _ ( Boolean | Call ) _ %BEGIN _
+    %IF _ ( Boolean | Call ) _ %BEGIN
         Body
     %END _ %IF
     {% function(d) {return {type: 'If', value: d}} %}
 
 While ->
-    %WHILE _ ( Boolean | Call ) _ %BEGIN _
+    %WHILE _ ( Boolean | Call ) _ %BEGIN
         Body
     %END _ %WHILE
     {% function(d) {return {type: 'While', value: d}} %}
@@ -48,26 +46,40 @@ Expression ->
     (Function | Call | Boolean)
     {% function(d) {return d[0][0]} %}
 
+# -- Function --
+
 Function -> 
-    %FUNCTION _ 
-        (%WITH (_ Identifier (_ %AS _ Object):?):+ _):?
-    %BEGIN _ 
+    %FUNCTION _ Params %BEGIN 
         Body
     %END _ %FUNCTION
-    {% function(d) {return {type: 'Function', value: d}} %}
+    {% function(d) {
+        var params = d[2] || [];
+        var body = d[4];
+        return {type: 'Function', value: [params, body]}
+    } %}
+
+Params -> (Param _):*
+    {% function(d) {
+        return d[0].map((v) => v[0]);
+    } %}
+
+Param -> %WITH _ Identifier (_ %AS _ Expression):?
+    {% function(d) {
+        var ident = d[2];
+        var obj = d[3] && d[3][3] || null;
+        return {type: 'Param', value: [ident, obj]};
+    } %}
 
 # -- Call --
 
 Call -> Object (_ Object):*
-    {% 
-    function(d) {
+    {% function(d) {
         var value = d[0];
         if (d[1] && value.concat) {
             value = value.concat(d[1].map((v) => v[1][0]));
         }
         return {type: 'Call', value: value};
-    } 
-    %}
+    } %}
 
 # -- Boolean --
 
@@ -131,13 +143,11 @@ Null -> %NULL
     {% function(d) {var v = d[0]; v.value = null; return v} %}
 
 Tokens -> Token (_ Token):*
-    {% 
-    function(d) {
+    {% function(d) {
         // (We don't need the Tokens object, so we just return the array value.)
         return [d[0][0]].concat(
             d[1].filter((v) => v && v[0]).map((v) => v.filter((v) => v).flat()).flat());
-    } 
-    %}
+    } %}
 
 Token -> 
     %float | %integer | %identifier | %punct | %HELP | %DEFINE | %AS | %WITH | %BEGIN |
@@ -147,4 +157,5 @@ Token ->
     
     {% function(d) {return d[0]} %}
 
-_  -> ( %WS | %NL ):* {% function(d) {return d[0].flat()} %}
+_  -> ( %WS | %NL ):* 
+    {% function(d) {return d[0].flat()} %}
