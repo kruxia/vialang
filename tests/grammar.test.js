@@ -14,6 +14,7 @@ var fixtures = [
     'define-function.yaml',
     'comment.yaml',
     'if.yaml',
+    'while.yaml',
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {

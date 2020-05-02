@@ -38,7 +38,7 @@ While ->
     %WHILE _ Expression _ %BEGIN
         Body
     %END _ %WHILE
-    {% function(d) {return {type: 'While', value: d}} %}
+    {% function(d) {return {type: 'While', value: [d[2], d[5]]}} %}
 
 # -- Expression --
 

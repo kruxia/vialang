@@ -28,7 +28,7 @@ var grammar = {
     {"name": "Define", "symbols": [(lexer.has("DEFINE") ? {type: "DEFINE"} : DEFINE), "_", "Identifier", "_", (lexer.has("AS") ? {type: "AS"} : AS), "_", "Expression"], "postprocess": function(d) {return {type: 'Define', value: [d[2], d[6]]}}},
     {"name": "Return", "symbols": [(lexer.has("RETURN") ? {type: "RETURN"} : RETURN), "_", "Expression"], "postprocess": function(d) {return {type: 'Return', value: d[2]}}},
     {"name": "If", "symbols": [(lexer.has("IF") ? {type: "IF"} : IF), "_", "Expression", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("IF") ? {type: "IF"} : IF)], "postprocess": function(d) {return {type: 'If', value: [d[2], d[5]]}}},
-    {"name": "While", "symbols": [(lexer.has("WHILE") ? {type: "WHILE"} : WHILE), "_", "Expression", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("WHILE") ? {type: "WHILE"} : WHILE)], "postprocess": function(d) {return {type: 'While', value: d}}},
+    {"name": "While", "symbols": [(lexer.has("WHILE") ? {type: "WHILE"} : WHILE), "_", "Expression", "_", (lexer.has("BEGIN") ? {type: "BEGIN"} : BEGIN), "Body", (lexer.has("END") ? {type: "END"} : END), "_", (lexer.has("WHILE") ? {type: "WHILE"} : WHILE)], "postprocess": function(d) {return {type: 'While', value: [d[2], d[5]]}}},
     {"name": "Expression$subexpression$1", "symbols": ["Function"]},
     {"name": "Expression$subexpression$1", "symbols": ["Call"]},
     {"name": "Expression$subexpression$1", "symbols": ["Boolean"]},
