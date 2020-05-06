@@ -36,11 +36,10 @@ define count as counter
 define fibonacci as function with n begin
     if n less than 3 begin
         return 1
-    else begin
-        define f as fibonacci with n minus 1
-        define g as fibonacci with n minus 2
-        return f plus g
     end if
+    define f as fibonacci with n minus 1
+    define g as fibonacci with n minus 2
+    return f plus g
 end function
 
 print count and describe fibonacci
