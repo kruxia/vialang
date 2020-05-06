@@ -121,16 +121,16 @@ CompareOp -> (%LESS_THAN | %GREATER_THAN | %EQUAL_TO)
 Object -> Identifier | Quote | Float | Integer | True | False | Null 
     {% function(d) {return d[0]} %}
 
-Identifier -> %identifier
+Identifier -> %Identifier
     {% function(d) {return d[0]} %}
 
 Quote -> %QUOTE _ Tokens _ %END _ %QUOTE
     {% function(d) {return {type: 'Quote', value: d[2]}} %}
 
-Float -> %float
+Float -> %Float
     {% function(d) {return d[0]} %}
 
-Integer -> %integer
+Integer -> %Integer
     {% function(d) {return d[0]} %}
 
 True -> %TRUE
@@ -150,7 +150,7 @@ Tokens -> Token (_ Token):*
     } %}
 
 Token -> 
-    %float | %integer | %identifier | %punct | %HELP | %DEFINE | %AS | %WITH | %BEGIN |
+    %Float | %Integer | %Identifier | %Punct | %HELP | %DEFINE | %AS | %WITH | %BEGIN |
     %END | %QUOTE | %BLOCK | %FUNCTION | %COMMENT | %IF | %ELSE | %WHILE | %CONTINUE |
     %BREAK | %RETURN | %AND | %OR | %NOT | %TRUE | %FALSE | %NULL | %EQUAL_TO |
     %LESS_THAN | %GREATER_THAN 

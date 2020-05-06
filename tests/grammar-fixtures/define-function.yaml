@@ -4,12 +4,12 @@
 # empty function
 - via: >-
     define f as function begin end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[],{"type":"Body","value":[]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[],{"type":"Body","value":[]}]}]}]}]
 
 # function with one statement
 - via: >-
     define f as function begin return 3.14 end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"float","value":3.14,"text":"3.14","offset":34,"lineBreaks":0,"line":1,"col":35}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"Float","value":3.14,"text":"3.14","offset":34,"lineBreaks":0,"line":1,"col":35}]}}]}]}]}]}]
 
 # function with two statements
 - via: >-
@@ -17,12 +17,12 @@
       define pi as 3.14
       return pi
     end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[],{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"pi","text":"pi","offset":36,"lineBreaks":0,"line":2,"col":10},{"type":"Call","value":[{"type":"float","value":3.14,"text":"3.14","offset":42,"lineBreaks":0,"line":2,"col":16}]}]},{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"pi","text":"pi","offset":56,"lineBreaks":0,"line":3,"col":10}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[],{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"pi","text":"pi","offset":36,"lineBreaks":0,"line":2,"col":10},{"type":"Call","value":[{"type":"Float","value":3.14,"text":"3.14","offset":42,"lineBreaks":0,"line":2,"col":16}]}]},{"type":"Return","value":{"type":"Call","value":[{"type":"Identifier","value":"pi","text":"pi","offset":56,"lineBreaks":0,"line":3,"col":10}]}}]}]}]}]}]
 
 # function with one param no default
 - via: >-
     define f as function with a begin return a end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"identifier","value":"a","text":"a","offset":26,"lineBreaks":0,"line":1,"col":27},null]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":41,"lineBreaks":0,"line":1,"col":42}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"Identifier","value":"a","text":"a","offset":26,"lineBreaks":0,"line":1,"col":27},null]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":41,"lineBreaks":0,"line":1,"col":42}]}}]}]}]}]}]
 
 # function with one param with default
 - via: >-
@@ -31,7 +31,7 @@
     begin 
       return a 
     end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},{"type":"Call","value":[{"type":"integer","value":5,"text":"5","offset":34,"lineBreaks":0,"line":2,"col":13}]}]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":53,"lineBreaks":0,"line":4,"col":10}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"Identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},{"type":"Call","value":[{"type":"Integer","value":5,"text":"5","offset":34,"lineBreaks":0,"line":2,"col":13}]}]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":53,"lineBreaks":0,"line":4,"col":10}]}}]}]}]}]}]
 
 # functions with two params
 - via: >-
@@ -41,7 +41,7 @@
     begin 
       return a plus b
     end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},{"type":"Call","value":[{"type":"integer","value":5,"text":"5","offset":34,"lineBreaks":0,"line":2,"col":13}]}]},{"type":"Param","value":[{"type":"identifier","value":"b","text":"b","offset":44,"lineBreaks":0,"line":3,"col":8},{"type":"Call","value":[{"type":"integer","value":10,"text":"10","offset":49,"lineBreaks":0,"line":3,"col":13}]}]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":68,"lineBreaks":0,"line":5,"col":10},{"type":"identifier","value":"plus","text":"plus","offset":70,"lineBreaks":0,"line":5,"col":12},{"type":"identifier","value":"b","text":"b","offset":75,"lineBreaks":0,"line":5,"col":17}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"Identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},{"type":"Call","value":[{"type":"Integer","value":5,"text":"5","offset":34,"lineBreaks":0,"line":2,"col":13}]}]},{"type":"Param","value":[{"type":"Identifier","value":"b","text":"b","offset":44,"lineBreaks":0,"line":3,"col":8},{"type":"Call","value":[{"type":"Integer","value":10,"text":"10","offset":49,"lineBreaks":0,"line":3,"col":13}]}]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":68,"lineBreaks":0,"line":5,"col":10},{"type":"Identifier","value":"plus","text":"plus","offset":70,"lineBreaks":0,"line":5,"col":12},{"type":"Identifier","value":"b","text":"b","offset":75,"lineBreaks":0,"line":5,"col":17}]}}]}]}]}]}]
 
 - via: >-
     define f as function 
@@ -51,7 +51,7 @@
       define b as b plus 10
       return a plus b
     end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},{"type":"Call","value":[{"type":"integer","value":5,"text":"5","offset":34,"lineBreaks":0,"line":2,"col":13}]}]},{"type":"Param","value":[{"type":"identifier","value":"b","text":"b","offset":44,"lineBreaks":0,"line":3,"col":8},null]}],{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"b","text":"b","offset":62,"lineBreaks":0,"line":5,"col":10},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":67,"lineBreaks":0,"line":5,"col":15},{"type":"identifier","value":"plus","text":"plus","offset":69,"lineBreaks":0,"line":5,"col":17},{"type":"integer","value":10,"text":"10","offset":74,"lineBreaks":0,"line":5,"col":22}]}]},{"type":"Return","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":86,"lineBreaks":0,"line":6,"col":10},{"type":"identifier","value":"plus","text":"plus","offset":88,"lineBreaks":0,"line":6,"col":12},{"type":"identifier","value":"b","text":"b","offset":93,"lineBreaks":0,"line":6,"col":17}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"Identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},{"type":"Call","value":[{"type":"Integer","value":5,"text":"5","offset":34,"lineBreaks":0,"line":2,"col":13}]}]},{"type":"Param","value":[{"type":"Identifier","value":"b","text":"b","offset":44,"lineBreaks":0,"line":3,"col":8},null]}],{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"b","text":"b","offset":62,"lineBreaks":0,"line":5,"col":10},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":67,"lineBreaks":0,"line":5,"col":15},{"type":"Identifier","value":"plus","text":"plus","offset":69,"lineBreaks":0,"line":5,"col":17},{"type":"Integer","value":10,"text":"10","offset":74,"lineBreaks":0,"line":5,"col":22}]}]},{"type":"Return","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":86,"lineBreaks":0,"line":6,"col":10},{"type":"Identifier","value":"plus","text":"plus","offset":88,"lineBreaks":0,"line":6,"col":12},{"type":"Identifier","value":"b","text":"b","offset":93,"lineBreaks":0,"line":6,"col":17}]}}]}]}]}]}]
 
 - via: >-
     define f as function 
@@ -60,5 +60,5 @@
     begin 
       return both a and b
     end function
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},null]},{"type":"Param","value":[{"type":"identifier","value":"b","text":"b","offset":38,"lineBreaks":0,"line":3,"col":8},null]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":61,"lineBreaks":0,"line":5,"col":15}]},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":67,"lineBreaks":0,"line":5,"col":21}]}]}}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"f","text":"f","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Function","value":[[{"type":"Param","value":[{"type":"Identifier","value":"a","text":"a","offset":29,"lineBreaks":0,"line":2,"col":8},null]},{"type":"Param","value":[{"type":"Identifier","value":"b","text":"b","offset":38,"lineBreaks":0,"line":3,"col":8},null]}],{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":61,"lineBreaks":0,"line":5,"col":15}]},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":67,"lineBreaks":0,"line":5,"col":21}]}]}}]}]}]}]}]
 

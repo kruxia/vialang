@@ -37,12 +37,12 @@ let lexer = moo.compile({
     GREATER_THAN:   /\b[Gg][Rr][Ee][Aa][Tt][Ee][Rr] [Tt][Hh][Aa][Nn]\b/,
 
     // numbers
-    integer:        {
+    Integer:        {
                         // "6." will be interpreted as integer + punct, not as float
                         match: /\b[0-9]+(?![eE\.]\d+)\b/, 
                         value: function(d) { return parseInt(d) }
                     },
-    float:          {
+    Float:          {
                         match:/\b-?[0-9]+(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?\b/, 
                         value: function(d) { return parseFloat(d) }
                     },
@@ -52,8 +52,8 @@ let lexer = moo.compile({
     NL:             { match: /\n/, lineBreaks: true, value: (d) => d },
 
     // strings
-    identifier:     /\b[\w\-]+\b/,
-    punct:          /[^\s\w\-]/,
+    Identifier:     /\b[\w\-]+\b/,
+    Punct:          /[^\s\w\-]/,
 })
 
 module.exports = { lexer: lexer }

@@ -3,16 +3,16 @@
 
 # - a one-letter identifier as an integer
 - via: define a as 5
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"a","text":"a","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"integer","value":5,"text":"5","offset":12,"lineBreaks":0,"line":1,"col":13}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"a","text":"a","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"Integer","value":5,"text":"5","offset":12,"lineBreaks":0,"line":1,"col":13}]}]}]}]
 
 # a multi-letter identifier as a float
 - via: define pi as 3.14159
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"pi","text":"pi","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"float","value":3.14159,"text":"3.14159","offset":13,"lineBreaks":0,"line":1,"col":14}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"pi","text":"pi","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"Float","value":3.14159,"text":"3.14159","offset":13,"lineBreaks":0,"line":1,"col":14}]}]}]}]
 
 # a hyphenated identifier as a quote
 - via: define good-morning as quote Good morning, Via! end quote
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"good-morning","text":"good-morning","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"Quote","value":[{"type":"identifier","value":"Good","text":"Good","offset":29,"lineBreaks":0,"line":1,"col":30},{"type":"WS","value":" ","text":" ","offset":33,"lineBreaks":0,"line":1,"col":34},{"type":"identifier","value":"morning","text":"morning","offset":34,"lineBreaks":0,"line":1,"col":35},{"type":"punct","value":",","text":",","offset":41,"lineBreaks":0,"line":1,"col":42},{"type":"WS","value":" ","text":" ","offset":42,"lineBreaks":0,"line":1,"col":43},{"type":"identifier","value":"Via","text":"Via","offset":43,"lineBreaks":0,"line":1,"col":44},{"type":"punct","value":"!","text":"!","offset":46,"lineBreaks":0,"line":1,"col":47}]}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"good-morning","text":"good-morning","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"Quote","value":[{"type":"Identifier","value":"Good","text":"Good","offset":29,"lineBreaks":0,"line":1,"col":30},{"type":"WS","value":" ","text":" ","offset":33,"lineBreaks":0,"line":1,"col":34},{"type":"Identifier","value":"morning","text":"morning","offset":34,"lineBreaks":0,"line":1,"col":35},{"type":"Punct","value":",","text":",","offset":41,"lineBreaks":0,"line":1,"col":42},{"type":"WS","value":" ","text":" ","offset":42,"lineBreaks":0,"line":1,"col":43},{"type":"Identifier","value":"Via","text":"Via","offset":43,"lineBreaks":0,"line":1,"col":44},{"type":"Punct","value":"!","text":"!","offset":46,"lineBreaks":0,"line":1,"col":47}]}]}]}]}]
 
 # multiple defines
 - via: define a as 5 define b as 10
-  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"identifier","value":"a","text":"a","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"integer","value":5,"text":"5","offset":12,"lineBreaks":0,"line":1,"col":13}]}]},{"type":"Define","value":[{"type":"identifier","value":"b","text":"b","offset":21,"lineBreaks":0,"line":1,"col":22},{"type":"Call","value":[{"type":"integer","value":10,"text":"10","offset":26,"lineBreaks":0,"line":1,"col":27}]}]}]}]
+  results: [{"type":"Body","value":[{"type":"Define","value":[{"type":"Identifier","value":"a","text":"a","offset":7,"lineBreaks":0,"line":1,"col":8},{"type":"Call","value":[{"type":"Integer","value":5,"text":"5","offset":12,"lineBreaks":0,"line":1,"col":13}]}]},{"type":"Define","value":[{"type":"Identifier","value":"b","text":"b","offset":21,"lineBreaks":0,"line":1,"col":22},{"type":"Call","value":[{"type":"Integer","value":10,"text":"10","offset":26,"lineBreaks":0,"line":1,"col":27}]}]}]}]

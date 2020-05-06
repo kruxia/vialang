@@ -3,45 +3,45 @@
 
 # both
 - via: return both a and b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":12,"lineBreaks":0,"line":1,"col":13}]},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":18,"lineBreaks":0,"line":1,"col":19}]}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":12,"lineBreaks":0,"line":1,"col":13}]},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":18,"lineBreaks":0,"line":1,"col":19}]}]}}]}]
 
 # either
 - via: return either a or b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":14,"lineBreaks":0,"line":1,"col":15}]},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":19,"lineBreaks":0,"line":1,"col":20}]}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":14,"lineBreaks":0,"line":1,"col":15}]},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":19,"lineBreaks":0,"line":1,"col":20}]}]}}]}]
 
 # not
 - via: return not a
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":11,"lineBreaks":0,"line":1,"col":12}]}}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":11,"lineBreaks":0,"line":1,"col":12}]}}}]}]
 
 - via: return not both a and b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":16,"lineBreaks":0,"line":1,"col":17}]},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":22,"lineBreaks":0,"line":1,"col":23}]}]}}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":16,"lineBreaks":0,"line":1,"col":17}]},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":22,"lineBreaks":0,"line":1,"col":23}]}]}}}]}]
 
 - via: return not either a or b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Either","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":18,"lineBreaks":0,"line":1,"col":19}]},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}]}}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Not","value":{"type":"Either","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":18,"lineBreaks":0,"line":1,"col":19}]},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}]}}}]}]
 
 # both + not
 - via: return both a and not b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":12,"lineBreaks":0,"line":1,"col":13}]},{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":22,"lineBreaks":0,"line":1,"col":23}]}}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":12,"lineBreaks":0,"line":1,"col":13}]},{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":22,"lineBreaks":0,"line":1,"col":23}]}}]}}]}]
 
 - via: return both not a and b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":16,"lineBreaks":0,"line":1,"col":17}]}},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":22,"lineBreaks":0,"line":1,"col":23}]}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":16,"lineBreaks":0,"line":1,"col":17}]}},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":22,"lineBreaks":0,"line":1,"col":23}]}]}}]}]
 
 - via: return both not a and not b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":16,"lineBreaks":0,"line":1,"col":17}]}},{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":26,"lineBreaks":0,"line":1,"col":27}]}}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":16,"lineBreaks":0,"line":1,"col":17}]}},{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":26,"lineBreaks":0,"line":1,"col":27}]}}]}}]}]
 
 # either + not
 - via: return either a or not b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":14,"lineBreaks":0,"line":1,"col":15}]},{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":14,"lineBreaks":0,"line":1,"col":15}]},{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}}]}}]}]
 
 - via: return either not a or b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":18,"lineBreaks":0,"line":1,"col":19}]}},{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":18,"lineBreaks":0,"line":1,"col":19}]}},{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":23,"lineBreaks":0,"line":1,"col":24}]}]}}]}]
 
 - via: return either not a or not b
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":18,"lineBreaks":0,"line":1,"col":19}]}},{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":27,"lineBreaks":0,"line":1,"col":28}]}}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Either","value":[{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":18,"lineBreaks":0,"line":1,"col":19}]}},{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":27,"lineBreaks":0,"line":1,"col":28}]}}]}}]}]
 
 # nested both + either + not
 - via: return both a and either b or not c
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":12,"lineBreaks":0,"line":1,"col":13}]},{"type":"Either","value":[{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":25,"lineBreaks":0,"line":1,"col":26}]},{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":34,"lineBreaks":0,"line":1,"col":35}]}}]}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":12,"lineBreaks":0,"line":1,"col":13}]},{"type":"Either","value":[{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":25,"lineBreaks":0,"line":1,"col":26}]},{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"c","text":"c","offset":34,"lineBreaks":0,"line":1,"col":35}]}}]}]}}]}]
 
 - via: return both either a or not b and c
-  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Either","value":[{"type":"Call","value":[{"type":"identifier","value":"a","text":"a","offset":19,"lineBreaks":0,"line":1,"col":20}]},{"type":"Not","value":{"type":"Call","value":[{"type":"identifier","value":"b","text":"b","offset":28,"lineBreaks":0,"line":1,"col":29}]}}]},{"type":"Call","value":[{"type":"identifier","value":"c","text":"c","offset":34,"lineBreaks":0,"line":1,"col":35}]}]}}]}]
+  results: [{"type":"Body","value":[{"type":"Return","value":{"type":"Both","value":[{"type":"Either","value":[{"type":"Call","value":[{"type":"Identifier","value":"a","text":"a","offset":19,"lineBreaks":0,"line":1,"col":20}]},{"type":"Not","value":{"type":"Call","value":[{"type":"Identifier","value":"b","text":"b","offset":28,"lineBreaks":0,"line":1,"col":29}]}}]},{"type":"Call","value":[{"type":"Identifier","value":"c","text":"c","offset":34,"lineBreaks":0,"line":1,"col":35}]}]}}]}]
