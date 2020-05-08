@@ -42,3 +42,21 @@ Reserved words and phrases:
 * `help` = give me immediate help in the current context.
 * `module` = a named body
 * `[from {module}*] import {module} [as {symbol}]`
+
+## Truthiness
+
+Boolean expressions (Both, Either, Not, Call) are evaluated to True or False.
+
+* True
+  * true
+  * Non-empty string
+  * Any number
+  * An object with keys
+  * An array with values
+* False
+  * NaN
+  * false
+  * null
+  * Empty string
+  * An object without keys
+  * An array without values
