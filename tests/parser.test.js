@@ -17,12 +17,12 @@ var fixtures = [
 ]
 
 describe.each(fixtures)('grammar: %s', (source) => {
-    var sourcePath = path.join(__dirname, 'grammar-fixtures', source);
+    var sourcePath = path.join(__dirname, 'parser-fixtures', source);
     var data = yaml.safeLoad(fs.readFileSync(sourcePath, { encoding: "UTF-8" }));
     describe.each(data)('', (item) => {
         test(item.via, () => {
             try {
-                // throws an error if the grammar won't parse the examples
+                // throws an error if the parser won't parse the examples
                 parser_results = JSON.parse(JSON.stringify(parser.parse(item.via)))
             } catch (err) {
                 console.log("item.via: " + item.via);
