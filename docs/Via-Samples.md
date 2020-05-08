@@ -6,16 +6,30 @@
 define a as 5
 define greeting as quote Hello, Via! end quote
 
-define hello-via as function begin
-    print greeting
+define hello-via as function with greeting begin
+    return greeting
 end function
 
-hello-via
+return hello-via greeting
 
-define print as function with x begin
-    write x 
-    write new-line
-    return x
+define fibonacci as function with n begin
+    if n less than 3 begin
+        return 1
+    end if
+    define f as fibonacci with n minus 1
+    define g as fibonacci with n minus 2
+    return f plus g
+end function
+
+define odds as function begin
+    comment
+        The yield keyword is not yet available.
+    end comment
+    while true begin
+        if i modulus 2 equal to 0 begin
+            yield i
+        end if
+    end while
 end function
 
 define counter as function with count as 0 begin
@@ -30,33 +44,6 @@ define counter as function with count as 0 begin
         return count
     end function
 end function
-
-define count as counter
-
-define fibonacci as function with n begin
-    if n less than 3 begin
-        return 1
-    end if
-    define f as fibonacci with n minus 1
-    define g as fibonacci with n minus 2
-    return f plus g
-end function
-
-print count and describe fibonacci
-
-define odds as function begin
-    for i in sequence 1 to 10 begin
-        if i modulus 2 equals 0 begin
-            yield i
-        end if
-    end for
-end function
-
-print count and describe odds
-
-while count less than 10 begin
-    print count
-end while
 
 ---
 
